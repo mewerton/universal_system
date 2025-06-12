@@ -1,0 +1,50 @@
+# Ambiente virtual
+venv/
+.env/
+*.env
+
+# Cache do Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# Arquivos de log
+*.log
+
+# Dados temporários ou de execução
+.DS_Store
+*.sqlite3
+*.db
+*.bak
+*.tmp
+*.swp
+*.parquet
+*.csv
+*.xlsx
+*.pdf
+*.json
+
+# Arquivos gerados
+*.pickle
+*.pkl
+*.joblib
+
+# Streamlit
+.streamlit/secrets.toml
+
+# VSCode e Jupyter
+.vscode/
+.ipynb_checkpoints/
+
+# Diretórios de datasets
+data/
+datasets/
+uploads/
+downloads/
+
+# Outros
+*.zip
+*.tar.gz
+node_modules/
