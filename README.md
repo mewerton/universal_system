@@ -6,7 +6,7 @@
 ## 🎯 Objetivo do Projeto
 
 Criar um sistema robusto, escalável e reutilizável, com:
-- Estrutura modular com navegação via páginas nativas do Streamlit.
+- Estrutura modular com navegação do Streamlit.
 - Dashboard interativo por setor (Ex: Supermercado, Logística, Turismo etc).
 - Integração futura com RAG (Retrieval-Augmented Generation) para uso de LLMs com dados específicos por módulo.
 - Possibilidade de reutilização por outras empresas de segmentos diversos.
@@ -16,19 +16,32 @@ Criar um sistema robusto, escalável e reutilizável, com:
 ```
 universal_system/
 ├── app.py                      # Ponto de entrada do app (controla login e redirecionamento)
+│
 ├── .streamlit/
 │   └── config.toml             # Configurações do layout Streamlit
 │   └── secrets.toml            
-├── pages/
-│   └── 1_Home.py               # Página inicial com miniaturas dos módulos
-│   └── (futuras páginas)       # Ex: 2_Farmacia.py, 3_Logistica.py etc.
+│
+├── modules/
+│   ├── supermercado.py
+│   ├── distribuicao.py
+│   ├── atacado.py
+│   ├── serv_financeiros.py
+│   ├── farmacia.py
+│   ├── logistica.py
+│   ├── turismo.py
+│   └── restaurante.py
+│
 ├── components/
 │   └── sidebar.py              # Componente do sidebar modular e condicional
+│
 ├── auth/
 │   └── login.py                # Função de autenticação segura
+│
 ├── data/                       # (futuramente) dados locais ou datasets fictícios
+│
 ├── utils/
 │   └── helpers.py              # Funções auxiliares e genéricas
+│
 └── requirements.txt            # Dependências do projeto
 ```
 
