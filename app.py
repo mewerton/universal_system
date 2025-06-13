@@ -45,3 +45,4 @@ elif pagina == "✈️ Turismo":
 
 elif pagina == "🍽️ Restaurante":
     restaurante.exibir()
+

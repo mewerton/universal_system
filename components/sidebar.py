@@ -14,6 +14,7 @@ def sidebar_navigation():
             "🚛 Logística",
             "✈️ Turismo",
             "🍽️ Restaurante"
+
         )
     )
     return menu

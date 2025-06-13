@@ -43,6 +43,7 @@ data/
 datasets/
 uploads/
 downloads/
+generators/
 
 # Outros
 *.zip
