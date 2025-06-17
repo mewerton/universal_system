@@ -48,14 +48,14 @@ universal_system/
 
 ## ⚙️ Tecnologias Utilizadas
 
-- **Python 3.12+**
-- **Streamlit 1.45+**
-- **Pandas 2.3+**
-- **LangChain – Cadeia RAG com rastreamento e ferramentas**
-- **Docling**
-- **FAISS**
-- **Claude Sonnet 4 (Anthropic) – LLM principal via API**
-- **HuggingFace Embeddings (multilingual-e5-large) – Embeddings semânticos**
+- **Python 3.12+ – Linguagem principal da aplicação**
+- **Streamlit 1.45+ – Framework leve para construção de front-end interativo**
+- **Pandas 2.3+ – Manipulação e análise de dados estruturados**
+- **LangChain – Construção da cadeia RAG com suporte a ferramentas e rastreamento**
+- **Docling – Extração estruturada de textos e tabelas a partir de PDFs**
+- **FAISS – Vectorstore local eficiente para busca semântica por similaridade**
+- **Claude Sonnet 4 (Anthropic) – LLM de geração via API, especializado em contexto extenso**
+- **HuggingFace Embeddings (intfloat/multilingual-e5-large) – Geração de embeddings semânticos multilíngues**
 
 ## 🚀 Execução Local
 
