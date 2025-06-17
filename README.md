@@ -81,7 +81,7 @@ streamlit run app.py
 - 📈 Evolução dos contratos assinados por mês  
 - 💰 Comparativo de valores contratados por categoria (carnes, hortifruti, padaria)  
 
-![Supermercado Dashboard](assets/prints/supermercado.png)
+![Supermercado Dashboard](assets/supermercado.png)
 
 ### 🚚 2. Distribuição
 **Gráficos sugeridos:**
@@ -91,7 +91,7 @@ streamlit run app.py
 - 📈 Evolução do número de entregas por mês  
 - 📊 Ranking de produtos mais distribuídos  
 
-![Distribuição Dashboard](assets/prints/distribuicao.png)
+![Distribuição Dashboard](assets/distribuicao.png)
 
 ### 🏬 3. Atacado
 **Gráficos sugeridos:**
@@ -101,7 +101,7 @@ streamlit run app.py
 - 📈 Histórico de inaugurações por ano  
 - 🧾 Índice de correção mais utilizado (IGP-M, IPCA, etc.)  
 
-![Atacado Dashboard](assets/prints/atacado.png)
+![Atacado Dashboard](assets/atacado.png)
 
 ### 💳 4. Serviços Financeiros
 **Gráficos sugeridos:**
@@ -111,7 +111,7 @@ streamlit run app.py
 - 📅 Evolução do inadimplemento mensal  
 - 📈 Uso de funcionalidades por cliente (cartão, seguro, odonto)  
 
-![Serviços Financeiros Dashboard](assets/prints/financeiro.png)
+![Serviços Financeiros Dashboard](assets/financeiro.png)
 
 ### 💊 5. Farmácias
 **Gráficos sugeridos:**
@@ -121,7 +121,7 @@ streamlit run app.py
 - ⚠️ Medicamentos com maior volume de devoluções  
 - 📊 Prazo médio de aprovação da ANVISA  
 
-![Farmácias Dashboard](assets/prints/farmacia.png)
+![Farmácias Dashboard](assets/farmacia.png)
 
 ### 🚛 6. Logística
 **Gráficos sugeridos:**
@@ -131,7 +131,7 @@ streamlit run app.py
 - ⏱️ Tempo médio de entrega por estado  
 - 🧾 Tipos de contrato logístico por modalidade (FTL, LTL, etc.)  
 
-![Logística Dashboard](assets/prints/logistica.png)
+![Logística Dashboard](assets/logistica.png)
 
 ### ✈️ 7. Turismo
 **Gráficos sugeridos:**
@@ -141,7 +141,7 @@ streamlit run app.py
 - 📈 Evolução de reservas por colaborador/mês  
 - 💬 Motivos de cancelamento mais recorrentes (texto categorizado)  
 
-![Turismo Dashboard](assets/prints/turismo.png)
+![Turismo Dashboard](assets/turismo.png)
 
 ### 🍽️ 8. Restaurante
 **Gráficos sugeridos:**
@@ -151,7 +151,7 @@ streamlit run app.py
 - 📈 Evolução de refeições servidas por mês  
 - 🧑‍🍳 Distribuição de funções dos colaboradores  
 
-![Restaurante Dashboard](assets/prints/restaurante.png)
+![Restaurante Dashboard](assets/restaurante.png)
 
 ---
 
