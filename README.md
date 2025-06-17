@@ -15,10 +15,14 @@ Criar um sistema robusto, escalável e reutilizável, com:
 
 ```
 universal_system/
-├── app.py                      # Ponto de entrada do app (controla login e redirecionamento)
+├── app.py                     
+├── utils.py 
+├── rag_pipeline.py 
+├── rag_section.py                  
+│                
 │
 ├── .streamlit/
-│   └── config.toml             # Configurações do layout Streamlit
+│   └── config.toml             
 │   └── secrets.toml            
 │
 ├── modules/
@@ -32,17 +36,14 @@ universal_system/
 │   └── restaurante.py
 │
 ├── components/
-│   └── sidebar.py              # Componente do sidebar modular e condicional
+│   └── sidebar.py           
 │
 ├── auth/
-│   └── login.py                # Função de autenticação segura
+│   └── login.py              
 │
-├── data/                       # (futuramente) dados locais ou datasets fictícios
+├── data/                      
 │
-├── utils/
-│   └── helpers.py              # Funções auxiliares e genéricas
-│
-└── requirements.txt            # Dependências do projeto
+└── requirements.txt    
 ```
 
 ## ⚙️ Tecnologias Utilizadas
@@ -50,13 +51,29 @@ universal_system/
 - **Python 3.12+**
 - **Streamlit 1.45+**
 - **Pandas 2.3+**
-- (Futuramente: FAISS ou Pinecone, LangChain, LLM APIs)
+- **LangChain – Cadeia RAG com rastreamento e ferramentas**
+- **Docling**
+- **FAISS**
+- **Claude Sonnet 4 (Anthropic) – LLM principal via API**
+- **HuggingFace Embeddings (multilingual-e5-large) – Embeddings semânticos**
 
+## 🚀 Execução Local
+
+```bash
+# Ativando ambiente virtual
+source .venv/bin/activate  # (Linux/macOS)
+.venv\Scripts\activate   # (Windows)
+
+# Instalando dependências
+pip install -r requirements.txt
+
+# Executando o app
+streamlit run app.py
+```
 
 ## 🔢 Módulos e Gráficos Sugeridos
 
 ### 🛒 1. Supermercado
-**Dataset fictício:** `contratos_fornecedores_comida.parquet`  
 **Gráficos sugeridos:**
 - 📊 Top 10 fornecedores por volume de entrega  
 - 📅 Distribuição dos prazos de validade exigidos  
@@ -64,8 +81,9 @@ universal_system/
 - 📈 Evolução dos contratos assinados por mês  
 - 💰 Comparativo de valores contratados por categoria (carnes, hortifruti, padaria)  
 
+![Supermercado Dashboard](assets/prints/supermercado.png)
+
 ### 🚚 2. Distribuição
-**Dataset fictício:** `contratos_distribuicao.csv`, `SLA_entregas.pdf`  
 **Gráficos sugeridos:**
 - 📦 Distribuição geográfica dos clientes atendidos  
 - ⏱️ Cumprimento de SLA por região  
@@ -73,8 +91,9 @@ universal_system/
 - 📈 Evolução do número de entregas por mês  
 - 📊 Ranking de produtos mais distribuídos  
 
+![Distribuição Dashboard](assets/prints/distribuicao.png)
+
 ### 🏬 3. Atacado
-**Dataset fictício:** `contratos_locacao_lojas.parquet`, `planos_expansao.csv`  
 **Gráficos sugeridos:**
 - 🗺️ Mapa das lojas por estado  
 - 💸 Valores de aluguel por loja e por metro quadrado  
@@ -82,8 +101,9 @@ universal_system/
 - 📈 Histórico de inaugurações por ano  
 - 🧾 Índice de correção mais utilizado (IGP-M, IPCA, etc.)  
 
+![Atacado Dashboard](assets/prints/atacado.png)
+
 ### 💳 4. Serviços Financeiros
-**Dataset fictício:** `contratos_credito.csv`, `seguros_termos.pdf`  
 **Gráficos sugeridos:**
 - 💳 Número de cartões emitidos por estado  
 - 📊 Parcelamentos médios por cliente  
@@ -91,8 +111,9 @@ universal_system/
 - 📅 Evolução do inadimplemento mensal  
 - 📈 Uso de funcionalidades por cliente (cartão, seguro, odonto)  
 
+![Serviços Financeiros Dashboard](assets/prints/financeiro.png)
+
 ### 💊 5. Farmácias
-**Dataset fictício:** `fornecedores_medicamentos.csv`, `registros_anvisa.pdf`  
 **Gráficos sugeridos:**
 - 🧪 Quantidade de medicamentos por categoria (genéricos, controlados, etc.)  
 - 📦 Fornecedores com maior volume de entrega  
@@ -100,8 +121,9 @@ universal_system/
 - ⚠️ Medicamentos com maior volume de devoluções  
 - 📊 Prazo médio de aprovação da ANVISA  
 
+![Farmácias Dashboard](assets/prints/farmacia.png)
+
 ### 🚛 6. Logística
-**Dataset fictício:** `contratos_frete.csv`, `licencas_antt.pdf`  
 **Gráficos sugeridos:**
 - 🚚 Custo médio de frete por rota  
 - 📍 Mapa interativo das rotas mais utilizadas  
@@ -109,8 +131,9 @@ universal_system/
 - ⏱️ Tempo médio de entrega por estado  
 - 🧾 Tipos de contrato logístico por modalidade (FTL, LTL, etc.)  
 
+![Logística Dashboard](assets/prints/logistica.png)
+
 ### ✈️ 7. Turismo
-**Dataset fictício:** `parcerias_hotel.pdf`, `condicoes_cancelamento.csv`  
 **Gráficos sugeridos:**
 - 🌍 Top destinos mais vendidos  
 - 📊 Taxa de cancelamento por fornecedor  
@@ -118,14 +141,17 @@ universal_system/
 - 📈 Evolução de reservas por colaborador/mês  
 - 💬 Motivos de cancelamento mais recorrentes (texto categorizado)  
 
+![Turismo Dashboard](assets/prints/turismo.png)
+
 ### 🍽️ 8. Restaurante
-**Dataset fictício:** `contratos_terceirizacao_alimentos.pdf`, `colaboradores_clt.csv`  
 **Gráficos sugeridos:**
 - 🍽️ Pratos mais vendidos por dia da semana  
 - 📊 Custo médio por prato (baseado em contratos com fornecedores)  
 - 🧾 Número de contratos terceirizados ativos  
 - 📈 Evolução de refeições servidas por mês  
 - 🧑‍🍳 Distribuição de funções dos colaboradores  
+
+![Restaurante Dashboard](assets/prints/restaurante.png)
 
 ---
 
@@ -144,24 +170,12 @@ universal_system/
 - Integração com RAG para respostas inteligentes por setor.
 - Personalização do tema para cada empresa cliente.
 
-## 🚀 Execução Local
-
-```bash
-# Ativando ambiente virtual
-source .venv/bin/activate  # (Linux/macOS)
-.venv\Scripts\activate   # (Windows)
-
-# Instalando dependências
-pip install -r requirements.txt
-
-# Executando o app
-streamlit run app.py
-```
+---
 
 ## 📄 Licença
 
-Projeto open-source. Licença a ser definida conforme cliente ou repositório corporativo.
+Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
 
 ---
 
-Desenvolvido com foco em **clean code**, **escalabilidade** e **reutilização**, como um desenvolvedor sênior faria. 😉
+Desenvolvido com foco em **clean code**, **escalabilidade** e **reutilização**. 😉

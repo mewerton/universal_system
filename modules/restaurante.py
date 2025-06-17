@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+from pathlib import Path
+from rag_section import rag_section
 
 def exibir():
     st.title("🍽️ Módulo Restaurante")
@@ -70,3 +72,70 @@ def exibir():
         turnos = df.groupby("Turno")["Qtd_Refeicoes_Servidas"].sum().reset_index()
         fig6 = px.pie(turnos, values="Qtd_Refeicoes_Servidas", names="Turno", title="Refeições por Turno")
         st.plotly_chart(fig6, use_container_width=True)
+
+
+    # ---------- WIDGET RAG (Restaurante) ----------
+    rag_section(
+        titulo     = "Assistente inteligente de Restaurante",
+        index_name = "restaurante",                       # namespace exclusivo
+        pasta_docs = Path("data/documentos/restaurante")  # onde salvar os PDFs
+    )
+
+    # ------------------------------------------------------------------
+    # ⬇️  NOVO BLOCO: tabela de “Tipos de Documentos” recomendados
+    # ------------------------------------------------------------------
+    st.divider()
+    if st.button("📑 Tipos de Documentos"):
+        dados = [
+            {
+                "Categoria": "Cardápios & Fichas Técnicas",
+                "Exemplos de PDF": "Menu sazonal, ficha de receita (BOM)",
+                "Por que ajudam": "Custo de prato, alergênicos, padronização",
+                "Exemplo de pergunta": "Quais ingredientes e custos do prato Spaghetti Carbonara?"
+            },
+            {
+                "Categoria": "Contratos com Fornecedores",
+                "Exemplos de PDF": "Acordo de fornecimento de carnes, hortifruti",
+                "Por que ajudam": "Condições de preço, prazo de entrega e SLA",
+                "Exemplo de pergunta": "Qual o prazo de pagamento negociado com o fornecedor de peixes?"
+            },
+            {
+                "Categoria": "Laudos & Licenças Sanitárias",
+                "Exemplos de PDF": "Vigilância sanitária, AVCB, alvará",
+                "Por que ajudam": "Compliance e auditorias",
+                "Exemplo de pergunta": "Quando vence o alvará sanitário da unidade centro?"
+            },
+            {
+                "Categoria": "Relatórios de Vendas & CMV",
+                "Exemplos de PDF": "Relatório POS diário, CMV mensal",
+                "Por que ajudam": "Análise de performance e margem",
+                "Exemplo de pergunta": "Qual foi o CMV (%) em maio de 2024?"
+            },
+            {
+                "Categoria": "Escalas & Folhas de Ponto",
+                "Exemplos de PDF": "Escala de garçom/cozinha, banco de horas",
+                "Por que ajudam": "Gestão de pessoal e custos de mão de obra",
+                "Exemplo de pergunta": "Quantas horas extras o garçom João fez na última semana?"
+            },
+            {
+                "Categoria": "Procedimentos Operacionais (POP)",
+                "Exemplos de PDF": "Higienização de utensílios, boas práticas",
+                "Por que ajudam": "Treinamento e padronização de qualidade",
+                "Exemplo de pergunta": "Qual a temperatura mínima de cozimento para frango indicada no POP?"
+            },
+            {
+                "Categoria": "Inventário de Estoque",
+                "Exemplos de PDF": "Inventário quinzenal, planilha de perdas",
+                "Por que ajudam": "Controle de desperdício e reordem",
+                "Exemplo de pergunta": "Qual o estoque atual de óleo de cozinha?"
+            },
+            {
+                "Categoria": "Planos de Marketing & Promoções",
+                "Exemplos de PDF": "Calendário de eventos, campanhas delivery",
+                "Por que ajudam": "Avaliar ROI e programar ações futuras",
+                "Exemplo de pergunta": "Quando inicia a promoção de rodízio a R$ 59,90?"
+            },
+        ]
+
+        st.markdown("### 📂 Documentos recomendados para indexação")
+        st.dataframe(pd.DataFrame(dados), use_container_width=True)

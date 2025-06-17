@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+from pathlib import Path
+from rag_section import rag_section
 
 def exibir():
     st.title("🛒 Módulo Supermercado")
@@ -51,3 +53,69 @@ def exibir():
         categoria_valores = df.groupby("Categoria")["Valor_Contrato"].sum().reset_index()
         fig5 = px.pie(categoria_valores, values="Valor_Contrato", names="Categoria", title="Distribuição por Categoria")
         st.plotly_chart(fig5, use_container_width=True)
+
+    # ---------- WIDGET RAG (Supermercado) ----------
+    rag_section(
+        titulo     = "Assistente inteligente de Supermercado",
+        index_name = "supermercado",                      # namespace isolado
+        pasta_docs = Path("data/documentos/supermercado") # onde salvar/encontrar PDFs
+    )
+
+    # ------------------------------------------------------------------
+    # ⬇️  NOVO BLOCO: tabela de “Tipos de Documentos” recomendados
+    # ------------------------------------------------------------------
+    st.divider()
+    if st.button("📑 Tipos de Documentos"):
+        dados = [
+            {
+                "Categoria": "Relatórios de Vendas & Mix",
+                "Exemplos de PDF": "Curva ABC, sell-out mensal, painel de categorias",
+                "Por que ajudam": "Consultas rápidas a volume, margem e giro por SKU/categoria",
+                "Exemplo de pergunta": "Qual foi o faturamento da categoria Laticínios em abril?"
+            },
+            {
+                "Categoria": "Planogramas & Layout de Gôndola",
+                "Exemplos de PDF": "Planograma de prateleira, guia de exposição",
+                "Por que ajudam": "Verificar facings, espaço linear e regras de merchandising",
+                "Exemplo de pergunta": "Quantos facings o café Premium ocupa no planograma 2024?"
+            },
+            {
+                "Categoria": "Contratos de Fornecimento & Merchandising",
+                "Exemplos de PDF": "Acordo anual de compra, contrato de verba promocional",
+                "Por que ajudam": "Condições de preço, bonificação, verba de gôndola",
+                "Exemplo de pergunta": "Qual o desconto de volume acordado com o fornecedor XYZ?"
+            },
+            {
+                "Categoria": "Política de Preços & Promoções",
+                "Exemplos de PDF": "Tabela de preços, calendário promocional",
+                "Por que ajudam": "Referência de preço base e mecânicas de oferta",
+                "Exemplo de pergunta": "Quando está prevista a próxima promoção de arroz 5 kg?"
+            },
+            {
+                "Categoria": "Relatórios de Perdas & Quebras",
+                "Exemplos de PDF": "Inventário de perdas, análise de desperdício",
+                "Por que ajudam": "Acompanhar shrinkage e definir ações corretivas",
+                "Exemplo de pergunta": "Qual foi a taxa de quebra em FLV no último trimestre?"
+            },
+            {
+                "Categoria": "Licenças Sanitárias & Certificados",
+                "Exemplos de PDF": "Alvará da vigilância sanitária, ISO 22000",
+                "Por que ajudam": "Compliance em inspeções e auditorias",
+                "Exemplo de pergunta": "Quando vence a licença sanitária da loja Centro?"
+            },
+            {
+                "Categoria": "Procedimentos de Segurança Alimentar",
+                "Exemplos de PDF": "POP de higienização, manual APPCC",
+                "Por que ajudam": "Consulta a padrões obrigatórios de manipulação",
+                "Exemplo de pergunta": "Qual a temperatura mínima de conservação de carnes frescas?"
+            },
+            {
+                "Categoria": "Pesquisas de Satisfação & NPS",
+                "Exemplos de PDF": "Relatório NPS, survey de experiência",
+                "Por que ajudam": "Insights para melhoria de atendimento e sortimento",
+                "Exemplo de pergunta": "Qual foi o NPS médio das lojas no 2º semestre?"
+            },
+        ]
+
+        st.markdown("### 📂 Documentos recomendados para indexação")
+        st.dataframe(pd.DataFrame(dados), use_container_width=True)

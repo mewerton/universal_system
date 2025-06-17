@@ -1,6 +1,8 @@
 import pandas as pd
 import plotly.express as px
 import streamlit as st
+from pathlib import Path
+from rag_section import rag_section
 
 def exibir():
     st.title("💳 Módulo Serviços Financeiros")
@@ -48,3 +50,76 @@ def exibir():
 
     fig5 = px.bar(func_counts, x="Funcionalidade", y="Quantidade", color="Funcionalidade")
     st.plotly_chart(fig5, use_container_width=True)
+
+
+    # ---------- WIDGET RAG (Serviços Financeiros) ----------
+    rag_section(
+        titulo     = "Assistente inteligente de Serviços Financeiros",
+        index_name = "servicos_financeiros",              # namespace exclusivo
+        pasta_docs = Path("data/documentos/servicos_financeiros")
+    )
+
+    # ------------------------------------------------------------------
+    # ⬇️  Tabela de “Tipos de Documentos” recomendados
+    # ------------------------------------------------------------------
+    st.divider()
+    if st.button("📑 Tipos de Documentos"):
+        dados = [
+            {
+                "Categoria": "Contrato & Regulamento do Cartão",
+                "Exemplos de PDF": "Contrato de adesão, regulamento VUON CARD",
+                "Por que ajudam": "Regras de tarifas, juros, cancelamento",
+                "Exemplo de pergunta": "Qual a taxa de juros por atraso?"
+            },
+            {
+                "Categoria": "Tabelas de Tarifas e Taxas",
+                "Exemplos de PDF": "Tabela de tarifas vigente, CET",
+                "Por que ajudam": "Consultas rápidas de custos",
+                "Exemplo de pergunta": "Há cobrança de anuidade?"
+            },
+            {
+                "Categoria": "Política de Cashback & Cupons",
+                "Exemplos de PDF": "Manual Clube VUON, política de cupons",
+                "Por que ajudam": "Regras de resgate, prazos de crédito",
+                "Exemplo de pergunta": "Em quantos dias recebo o cashback?"
+            },
+            {
+                "Categoria": "Apólices de Seguros & Assistências",
+                "Exemplos de PDF": "Vuon Vida, Vuon Casa Protegida, Vuon Odonto",
+                "Por que ajudam": "Cobertura, carência, prêmio",
+                "Exemplo de pergunta": "Qual a cobertura médica do Vuon Odonto?"
+            },
+            {
+                "Categoria": "Guia de Emissão & Crédito",
+                "Exemplos de PDF": "Manual de análise de crédito",
+                "Por que ajudam": "Padronizar onboarding em loja",
+                "Exemplo de pergunta": "Quais documentos o cliente apresenta?"
+            },
+            {
+                "Categoria": "Relatórios de Desempenho da Carteira",
+                "Exemplos de PDF": "Relatório de inadimplência, participação nas vendas",
+                "Por que ajudam": "Gestão de risco e metas",
+                "Exemplo de pergunta": "Qual a inadimplência no último trimestre?"
+            },
+            {
+                "Categoria": "Documentos de Compliance (Bacen / LGPD)",
+                "Exemplos de PDF": "Política de privacidade, normas Bacen",
+                "Por que ajudam": "Respostas corretas a obrigações regulatórias",
+                "Exemplo de pergunta": "O VUON CARD compartilha dados com terceiros?"
+            },
+            {
+                "Categoria": "Acordos com Lojas Parceiras",
+                "Exemplos de PDF": "Termos de parceria, SLA de cashback",
+                "Por que ajudam": "Negociação e suporte comercial",
+                "Exemplo de pergunta": "Qual percentual de cashback na parceira Y?"
+            },
+            {
+                "Categoria": "Scripts de Atendimento & FAQ",
+                "Exemplos de PDF": "Manual de suporte, FAQ interno",
+                "Por que ajudam": "Uniformizar respostas ao cliente",
+                "Exemplo de pergunta": "Como solicitar a 2ª via do cartão?"
+            },
+        ]
+
+        st.markdown("### 📂 Documentos recomendados para indexação")
+        st.dataframe(pd.DataFrame(dados), use_container_width=True)

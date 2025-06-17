@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+from pathlib import Path
+from rag_section import rag_section
 
 def exibir():
     st.title("🚛 Módulo Logística")
@@ -67,3 +69,69 @@ def exibir():
     tempo_estado = df.groupby("UF_Destino")["Tempo_Entrega_Dias"].mean().reset_index()
     fig5 = px.bar(tempo_estado, x="UF_Destino", y="Tempo_Entrega_Dias", color="UF_Destino", text_auto=True)
     st.plotly_chart(fig5, use_container_width=True)
+
+    # ---------- WIDGET RAG (Logística) ----------
+    rag_section(
+        titulo     = "Assistente inteligente de Logística",
+        index_name = "logistica",                       # namespace exclusivo
+        pasta_docs = Path("data/documentos/logistica")  # onde salvar os PDFs
+    )
+
+    # ------------------------------------------------------------------
+    # ⬇️  NOVO BLOCO: tabela de “Tipos de Documentos” recomendados
+    # ------------------------------------------------------------------
+    st.divider()
+    if st.button("📑 Tipos de Documentos"):
+        dados = [
+            {
+                "Categoria": "Contratos de Transporte & SLA",
+                "Exemplos de PDF": "Contrato com transportadora, ANS de entrega",
+                "Por que ajudam": "Consultas de prazos, multas e níveis de serviço",
+                "Exemplo de pergunta": "Qual a multa pelo não cumprimento do OTIF acima de 95 %?"
+            },
+            {
+                "Categoria": "Tabelas de Frete & Combustível",
+                "Exemplos de PDF": "Tabela por km, gatilho de diesel",
+                "Por que ajudam": "Simulações de rota e custo logístico",
+                "Exemplo de pergunta": "Quanto custa transportar 3 t por 800 km na região Norte?"
+            },
+            {
+                "Categoria": "Mapas de Rotas & Janelas de Doca",
+                "Exemplos de PDF": "Plano de rotas, agenda de docas do CD",
+                "Por que ajudam": "Planejamento de carregamento e redução de tempo ocioso",
+                "Exemplo de pergunta": "Qual o slot de doca disponível para o cliente XYZ às quartas-feiras?"
+            },
+            {
+                "Categoria": "Relatórios OTIF / KPI de Entrega",
+                "Exemplos de PDF": "Relatório mensal OTIF, KPI por transportadora",
+                "Por que ajudam": "Monitorar performance e renegociar contratos",
+                "Exemplo de pergunta": "Qual foi o OTIF médio da transportadora ABC no 2º tri?"
+            },
+            {
+                "Categoria": "Inventário & Capacidade de Armazém",
+                "Exemplos de PDF": "Inventário diário, mapa de ocupação de ruas",
+                "Por que ajudam": "Avaliar espaço disponível e planejar inbound",
+                "Exemplo de pergunta": "Qual a taxa de ocupação do CD Curitiba hoje?"
+            },
+            {
+                "Categoria": "Manuais de Operação & Segurança",
+                "Exemplos de PDF": "POP de carga/descarga, NR-11/NR-12",
+                "Por que ajudam": "Treinamento e compliance EHS",
+                "Exemplo de pergunta": "Qual torque recomendado para catracas de cinta na amarração?"
+            },
+            {
+                "Categoria": "Licenças & Certificados Reguladores",
+                "Exemplos de PDF": "ANTT, SASSMAQ, ISO 9001",
+                "Por que ajudam": "Exigência em auditorias e renovações contratuais",
+                "Exemplo de pergunta": "Quando expira o SASSMAQ da frota dedicada?"
+            },
+            {
+                "Categoria": "Ocorrências & Relatórios de Incidente",
+                "Exemplos de PDF": "Registro de avarias, relatório de acidentes",
+                "Por que ajudam": "Análise de causa-raiz e melhoria contínua",
+                "Exemplo de pergunta": "Quantas avarias ocorreram na rota SP-RJ em 2023?"
+            },
+        ]
+
+        st.markdown("### 📂 Documentos recomendados para indexação")
+        st.dataframe(pd.DataFrame(dados), use_container_width=True)

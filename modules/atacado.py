@@ -1,6 +1,12 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+# from rag_pipeline import process_document, create_rag_chain
+# from langchain_huggingface import HuggingFaceEmbeddings
+# from langchain_community.vectorstores import FAISS
+# import os
+from pathlib import Path
+from rag_section import rag_section
 
 def exibir():
     st.title(" Módulo Atacado")
@@ -94,3 +100,74 @@ def exibir():
             title="Distribuição dos Índices de Correção"
         )
         st.plotly_chart(fig_indice, use_container_width=True)
+
+
+    # ---------- WIDGET RAG ----------
+    rag_section(
+        titulo     = "Assistente inteligente do Atacado",
+        index_name = "atacado",
+        pasta_docs = Path("data/documentos/atacado"),
+    )
+
+
+    # ------------------------------------------------------------------
+    # ⬇️  NOVO BLOCO: tabela de “Tipos de Documentos” recomendados
+    # ------------------------------------------------------------------
+    st.divider()
+    if st.button("📑 Tipos de Documentos"):
+        # dados-base da tabela
+        dados = [
+            {
+                "Categoria": "Contratos de Fornecimento & Compra",
+                "Exemplos de PDF": "Contrato-quadro, aditivos de preço/prazo",
+                "Por que ajudam": "Condições de pagamento, SLAs, multas",
+                "Exemplo de pergunta": "Qual é a multa por atraso no contrato com o fornecedor X?"
+            },
+            {
+                "Categoria": "Catálogo de Produtos",
+                "Exemplos de PDF": "Catálogo comercial, tabela de preços",
+                "Por que ajudam": "Busca rápida de SKU, cálculo de margens",
+                "Exemplo de pergunta": "Qual o preço de lista do SKU ABC?"
+            },
+            {
+                "Categoria": "Relatórios Operacionais",
+                "Exemplos de PDF": "Relatório de vendas, giro de estoque",
+                "Por que ajudam": "Perguntas de performance regional",
+                "Exemplo de pergunta": "Quais foram os 3 estados com maior faturamento no 1º tri?"
+            },
+            {
+                "Categoria": "Política Comercial",
+                "Exemplos de PDF": "Política de descontos, devoluções",
+                "Por que ajudam": "Normas claras para time comercial",
+                "Exemplo de pergunta": "Qual o desconto máximo para a categoria de bebidas?"
+            },
+            {
+                "Categoria": "Documentos Logísticos",
+                "Exemplos de PDF": "Acordos de frete, contratos de transportadoras",
+                "Por que ajudam": "SLA de entrega, regiões atendidas",
+                "Exemplo de pergunta": "Qual o prazo de entrega para a região Nordeste?"
+            },
+            {
+                "Categoria": "Compliance & Qualidade",
+                "Exemplos de PDF": "Certificados ISO, manual de armazenagem",
+                "Por que ajudam": "Respostas rápidas em auditorias",
+                "Exemplo de pergunta": "Quando expira o ISO 9001 do CD de Campinas?"
+            },
+            {
+                "Categoria": "Notas Técnicas & Regulamentos",
+                "Exemplos de PDF": "Instruções fiscais, circulares ICMS-ST",
+                "Por que ajudam": "Orientação tributária e sanitária",
+                "Exemplo de pergunta": "Qual é a alíquota ICMS-ST para detergentes em SP?"
+            },
+            {
+                "Categoria": "Propostas & Acordos de Parceria",
+                "Exemplos de PDF": "Memorandos, condições especiais",
+                "Por que ajudam": "Preparar renegociações ou propostas",
+                "Exemplo de pergunta": "Quais benefícios de parceria estão previstos para o cliente Y?"
+            },
+        ]
+
+        # exibe a tabela
+        df_docs = pd.DataFrame(dados)
+        st.markdown("### 📂 Documentos recomendados para indexação")
+        st.dataframe(df_docs, use_container_width=True)

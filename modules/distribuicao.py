@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+from pathlib import Path
+from rag_section import rag_section
 
 def exibir():
     st.title(" Módulo Distribuição")
@@ -52,3 +54,69 @@ def exibir():
     fig5 = px.bar(produtos_top.head(10), x="Quantidade", y="Produto", orientation="h",
                   title="Top 10 Produtos Distribuídos")
     st.plotly_chart(fig5, use_container_width=True)
+
+   # ---------- WIDGET RAG (Distribuição) ----------
+    rag_section(
+        titulo     = "Assistente inteligente de Distribuição",
+        index_name = "distribuicao",                     # ← muda o namespace
+        pasta_docs = Path("data/documentos/distribuicao")  # ← onde salvar PDFs
+    )
+
+    # ------------------------------------------------------------------
+    # ⬇️  NOVO BLOCO: tabela de “Tipos de Documentos” recomendados
+    # ------------------------------------------------------------------
+    st.divider()
+    if st.button("📑 Tipos de Documentos"):
+        dados = [
+            {
+                "Categoria": "Contratos de Distribuição & SLA",
+                "Exemplos de PDF": "Contrato logístico, aditivos de SLA, ANS",
+                "Por que ajudam": "Prazos, multas, níveis de serviço acordados",
+                "Exemplo de pergunta": "Qual a multa estipulada para atraso acima de 24 h?"
+            },
+            {
+                "Categoria": "Mapas de Rotas & Janelas de Doca",
+                "Exemplos de PDF": "Plano mestre de rotas, booking de docas",
+                "Por que ajudam": "Otimização de roteirização e slots de carregamento",
+                "Exemplo de pergunta": "Qual a janela de doca do cliente XPTO às segundas-feiras?"
+            },
+            {
+                "Categoria": "Relatórios de Nível de Serviço",
+                "Exemplos de PDF": "Relatório OTIF, KPI mensal de entrega",
+                "Por que ajudam": "Medição de performance por região/transportadora",
+                "Exemplo de pergunta": "Qual foi o OTIF do Nordeste em março?"
+            },
+            {
+                "Categoria": "Inventário & Capacidade de CDs",
+                "Exemplos de PDF": "Inventário mensal, layout de armazenagem",
+                "Por que ajudam": "Consultas rápidas de saldo e ocupação",
+                "Exemplo de pergunta": "Qual o estoque disponível do SKU 123 no CD Recife?"
+            },
+            {
+                "Categoria": "Tabelas de Frete e Custos",
+                "Exemplos de PDF": "Tabela de frete por faixa de km, acordo de combustível",
+                "Por que ajudam": "Simulações de custo e negociação de transportadoras",
+                "Exemplo de pergunta": "Quanto custa o frete por kg para 500 km na região Sul?"
+            },
+            {
+                "Categoria": "Documentos Regulatórios & Sanitários",
+                "Exemplos de PDF": "Autorização ANTT, licenças ANVISA",
+                "Por que ajudam": "Compliance e auditorias",
+                "Exemplo de pergunta": "Quando expira a licença ANVISA do CD Curitiba?"
+            },
+            {
+                "Categoria": "Manuais de Operação & Segurança",
+                "Exemplos de PDF": "Procedimento de carga/descarga, NR-11",
+                "Por que ajudam": "Consulta a padrões operacionais e EHS",
+                "Exemplo de pergunta": "Qual o procedimento para amarração de carga paletizada?"
+            },
+            {
+                "Categoria": "Ocorrências & Logs de Transporte",
+                "Exemplos de PDF": "Relatório de avarias, registro de atrasos",
+                "Por que ajudam": "Análise de falhas e melhoria contínua",
+                "Exemplo de pergunta": "Quantas avarias ocorreram na rota SP-RJ em 2024?"
+            },
+        ]
+
+        st.markdown("### 📂 Documentos recomendados para indexação")
+        st.dataframe(pd.DataFrame(dados), use_container_width=True)

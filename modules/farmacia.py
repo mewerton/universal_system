@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+from pathlib import Path
+from rag_section import rag_section
 
 def exibir():
     st.title("💊 Módulo Farmácia")
@@ -81,3 +83,69 @@ def exibir():
     else:
         st.success("Nenhum medicamento em falta no momento.")
 
+
+    # ---------- WIDGET RAG (Farmácia) ----------
+    rag_section(
+        titulo     = "Assistente inteligente de Farmácia",
+        index_name = "farmacia",                          # namespace isolado
+        pasta_docs = Path("data/documentos/farmacia")     # onde salvar PDFs
+    )
+
+    # ------------------------------------------------------------------
+    # ⬇️  NOVO BLOCO: tabela de “Tipos de Documentos” recomendados
+    # ------------------------------------------------------------------
+    st.divider()
+    if st.button("📑 Tipos de Documentos"):
+        dados = [
+            {
+                "Categoria": "Bulas & Dossiês de Medicamentos",
+                "Exemplos de PDF": "Bulas RDC 47, dossiê de registro",
+                "Por que ajudam": "Informações de posologia, indicações e efeitos adversos",
+                "Exemplo de pergunta": "Qual a dose máxima diária de ibuprofeno para adultos?"
+            },
+            {
+                "Categoria": "Protocolos de Dispensação & POPs",
+                "Exemplos de PDF": "POP de venda de antimicrobianos, Guia de atenção farmacêutica",
+                "Por que ajudam": "Garantir conformidade na dispensação e orientação ao paciente",
+                "Exemplo de pergunta": "Quais documentos devo arquivar ao vender psicotrópicos classe B?"
+            },
+            {
+                "Categoria": "Relatórios de Controle Especial (Portaria 344)",
+                "Exemplos de PDF": "Livro de psicotrópicos, Mapa de balanceamento mensal",
+                "Por que ajudam": "Auditorias sanitárias e conferência de estoque controlado",
+                "Exemplo de pergunta": "Quantos comprimidos de clonazepam foram vendidos em maio?"
+            },
+            {
+                "Categoria": "Contratos & Condições Comerciais com Laboratórios",
+                "Exemplos de PDF": "Acordo de compra, rebate trimestral",
+                "Por que ajudam": "Negociação de preço, bonificações e prazos",
+                "Exemplo de pergunta": "Qual rebate firmado com o laboratório XYZ para o medicamento Genérico A?"
+            },
+            {
+                "Categoria": "Relatórios de Vendas & Giro de Estoque",
+                "Exemplos de PDF": "Top 100 SKUs, ruptura por categoria",
+                "Por que ajudam": "Decisão de compra e reposição",
+                "Exemplo de pergunta": "Qual foi o giro médio de analgésicos na última quinzena?"
+            },
+            {
+                "Categoria": "Licenças & Certificados Sanitários",
+                "Exemplos de PDF": "Alvará sanitário, Autorização de funcionamento ANVISA",
+                "Por que ajudam": "Exigidos em inspeções e renovações",
+                "Exemplo de pergunta": "Quando vence o alvará sanitário da loja Matriz?"
+            },
+            {
+                "Categoria": "Política de Descarte de Medicamentos",
+                "Exemplos de PDF": "POP de descarte, contrato com incineradora",
+                "Por que ajudam": "Compliance ambiental e sanitário",
+                "Exemplo de pergunta": "Qual o procedimento para descarte de medicamentos vencidos?"
+            },
+            {
+                "Categoria": "Programas de Benefício / PBM",
+                "Exemplos de PDF": "Manual PBM, contratos de copagamento",
+                "Por que ajudam": "Orientar equipe sobre elegibilidade e reembolso",
+                "Exemplo de pergunta": "Quais documentos o cliente precisa para aderir ao PBM do laboratório ABC?"
+            },
+        ]
+
+        st.markdown("### 📂 Documentos recomendados para indexação")
+        st.dataframe(pd.DataFrame(dados), use_container_width=True)
